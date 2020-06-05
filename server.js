@@ -1,7 +1,7 @@
 const express =  require('express');
 const bodyParser = require('body-parser');
 const {config} = require('./config/index');
-const userApi = require('./routes/user')
+const userApi = require('./routes/RoutesUser')
 const db = require('./lib/mongo');
 var app = express();
 //new MongoLib().connect();
