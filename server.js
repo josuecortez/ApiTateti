@@ -1,13 +1,14 @@
-const express = require('express');
+const express =  require('express');
 const bodyParser = require('body-parser');
-
+const {config} = require('./config/index');
+const userApi = require('./routes/user')
+const db = require('./lib/mongo');
 var app = express();
+//new MongoLib().connect();
+db('mongodb+srv://dbUser:dbUser@progavanzada-adlzk.mongodb.net/tatetiMongo?retryWrites=true&w=majority');
 app.use(bodyParser.json());
-
-app.listen(3000, function() {
-    console.log(`Listening http://localhost:${3000}`);
+userApi(app);
+app.listen(config.port, function(){
+    console.log(`Listening http://localhost:${config.port}`);
 })
-
-app.get('/', function(req, res) {
-    res.send('hello world');
-});
+module.exports = app;
