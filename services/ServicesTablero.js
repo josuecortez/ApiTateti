@@ -7,5 +7,5 @@ class TableroService {
     }
 }
 module.exports = {
-    UserService
+    TableroService
 };

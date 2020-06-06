@@ -1,11 +1,13 @@
 const express = require("express");
 const UserService = require("../services/ServicesUsers");
+const TableroService = require("../services/ServicesTablero")
 const response = require("../network/response");
 
 function userApi(app) {
   const router = express.Router();
   app.use("/", router);
   const userService = new UserService.UserService();
+  const tableroService = new TableroService.TableroService();
 
   router.post("/user", function (req, res) {
     userService
@@ -43,6 +45,15 @@ function userApi(app) {
       });
   });
 
-  router.get("/tablero", function (req, res) {});
+  //obtener posicion del tablero
+  router.get("/tablero", function (req, res) {
+      tableroService.getPosition()
+        .then(()=> {
+            //respuesta
+        })
+        .catch((err) => {
+            //error
+        })
+  });
 }
 module.exports = userApi;
