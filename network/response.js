@@ -3,7 +3,8 @@ const chalk = require('chalk');
 exports.success = function (req, res, message, status){
     res.status(status || 200).send({
         body: message,
-        req: req
+        req: req,
+        res: res
     })
 };
 

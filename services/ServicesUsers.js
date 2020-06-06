@@ -3,7 +3,6 @@ const ModelTablero = require('../schema/schemaTablero');
 
 class UserService {
     postUser(name, res){
-        console.log(name);
         return new Promise((resolve, reject) => {
             let objectId = getObjectId();
             console.log(objectId);
@@ -16,14 +15,27 @@ class UserService {
             user.save();
             resolve(userJson);
         });
-    }
-
-    async getAllUser(){
-        const users = await ModelUser.find({});
-        return users;
-    }
-
-    
+    };
+     getOneUser(idUser){
+        return  new Promise((resolve, rejected) => {
+            try {
+                const user =  ModelUser.find({_id: idUser});
+                resolve(user);
+            } catch (error) {
+                rejected(error);
+            }
+        })
+    };
+    getAllUser(){
+        return new Promise((resolve,rejected)=> {
+            try {
+                const users =  ModelUser.find({});
+                resolve(users);
+            } catch (error) {
+                rejected(error);
+            }
+        });
+    };
 }
 function getObjectId() {
     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
