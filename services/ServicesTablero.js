@@ -208,12 +208,6 @@ class TableroService {
     };
     const tablero = await ModelTablero.findOne({ _id: idUsuario });
     if(tablero){
-      tablero.tableroOcupado = [];
-      tablero.tableroMaquina = [];
-      tablero.tableroHumano = [];
-      tablero.empate = false;
-      tablero.ganadorHumano = false;
-      tablero.ganadorMaquina = false;
       tablero.cantidadEmpates = 0;
       tablero.cantidadGanadorHumano = 0;
       tablero.cantidadGanadorMaquina = 0;
