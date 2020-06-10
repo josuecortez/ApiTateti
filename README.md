@@ -7,7 +7,7 @@
 4. Para correr la api se puede correr con `node server` or `nodemon server`
 
 ## HTTP's Request de usuario
-### 1. /user
+### 1.POST /user
 1. 1 http request **POST** en la siguiente url http://localhost:3001/user
 ----
 #### Data to send
@@ -21,14 +21,14 @@ Example: ejemplo de dato a enviar.
 ````
 5ee15917c3eb175f72c1d044
 ````
-### 2. /user 
+### 2. GET /user 
 1. Obtener todos los user **GET**
 
-### 3. /user/id
+### 3. GET /user/id
 1. Enviar id para obtener el usuario **GET**
 
 ## HTTP's Request del tablero
-### 1. /tablero
+### 1. GET /tablero
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero
 ----
@@ -57,7 +57,7 @@ value = 5ee15917c3eb175f72c1d044
 }
 ````
 
-### 2. /tablero/posicion
+### 2. POST /tablero/posicion
 
 1. 1 http request **POST** en la siguiente url http://localhost:3001/tablero/posicion
 ----
@@ -95,7 +95,7 @@ http: //localhost:3001/tablero/8
 }
 ````
 
-### 3. /tablero/reiniciar
+### 3. GET /tablero/reiniciar
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero/reiniciar
 ----
@@ -125,7 +125,7 @@ http: //localhost:3001/tablero/reiniciar
     "__v": 16
 }
 ````
-### 4. /tablero/reiniciarHistorial
+### 4. GET /tablero/reiniciarHistorial
 
 1. 1 http request **POST** en la siguiente url http://localhost:3001/tablero/reiniciarHistorial
 ----
