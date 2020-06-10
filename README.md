@@ -1,4 +1,4 @@
-# Evaluación Meli- Nivel 2 y Nivel 3
+# Api para catedra Programacion avanzada de un juego tateti
 
 ## Intructions to run 
 1. Descargar e instalar Node con el siguiente link https://nodejs.org/es/download/
