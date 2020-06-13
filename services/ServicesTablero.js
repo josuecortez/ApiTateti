@@ -1,5 +1,5 @@
 const ModelTablero = require("../schema/schemaTablero");
-const tableroCompleto = [1,2,3,4,5,6,7,8,9];
+const tableroCompleto = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const winningCombos = [
   [1, 2, 3],
   [4, 5, 6],
@@ -13,10 +13,9 @@ const winningCombos = [
 class TableroService {
   async getPositionInicial(idUsuario) {
     const tablero = await ModelTablero.findOne({ _id: idUsuario });
-    if(tablero){
-        return tablero;
-    }
-    else {
+    if (tablero) {
+      return tablero;
+    } else {
       const jsonTablero = {
         _id: idUsuario,
         tableroOcupado: [],
@@ -31,11 +30,11 @@ class TableroService {
       };
       let tableroNuevo = new ModelTablero(jsonTablero);
       tableroNuevo.save();
-      return ({
+      return {
         msgError:
           "No se encuentra ningun tablero para este usuario, se creo uno",
         datoAdicional: "",
-      });
+      };
     }
   }
   async setPosition(position, idUsuario) {
@@ -56,73 +55,112 @@ class TableroService {
           //verificar que no este ocupada
           if (!tablero.tableroOcupado.find((element) => element == position)) {
             //verificar si esta lleno
-            if(tablero.tableroOcupado.length == 9){
-                return (jsonResult = {
-                    msgError: "No existen mas lugares, el tablero debe reiniciarse en /tablero/reiniciar",
-                    datoAdicional: "Con dato adicional el header key: id y value:" + idUsuario,
-                  });
+            if (tablero.tableroOcupado.length == 9) {
+              return (jsonResult = {
+                msgError:
+                  "No existen mas lugares, el tablero debe reiniciarse en /tablero/reiniciar",
+                datoAdicional:
+                  "Con dato adicional el header key: id y value:" + idUsuario,
+              });
             }
-            if(tablero.tableroOcupado.length < 8){
-                tablero.tableroHumano.push(position);
-                tablero.tableroHumano.sort(function(a, b){return a-b});
-                tablero.tableroOcupado.push(position);
-                tablero.tableroOcupado.sort(function(a, b){return a-b})
-                let isWin = checkWinner(tablero.tableroHumano);
-                //verificar si gano humano
-                if(isWin){
-                    tablero.ganadorHumano = true;
-                    tablero.cantidadGanadorHumano = tablero.cantidadGanadorHumano + 1;
-                    tablero.save();
-                    return tablero;
-                }
-                //si no gano humano tratar de buscar si gana maquina
-                let celdaM = checkSiGana(tablero.tableroMaquina);
-                if(celdaM > -1){
-                    tablero.tableroMaquina.push(celdaM);
-                    tablero.tableroMaquina.sort(function(a, b){return a-b});
-                    tablero.tableroOcupado.push(celdaM);
-                    tablero.tableroOcupado.sort(function(a, b){return a-b});
-                    tablero.ganadorMaquina= true;
-                    tablero.cantidadGanadorMaquina = tablero.cantidadGanadorMaquina + 1;
-                    tablero.save();
-                    return tablero;
-                }
-                //verificar si esta por ganar el humano
-                let celdaH = checkSiGana(tablero.tableroHumano);
-                if(celdaH > -1){
-                    tablero.tableroMaquina.push(celdaH);
-                    tablero.tableroMaquina.sort(function(a, b){return a-b});
-                    tablero.tableroOcupado.push(celdaH);
-                    tablero.tableroOcupado.sort(function(a, b){return a-b});
-                    tablero.save();
-                    return tablero;
-                }
-                //si no esta por ganar el humano poner celda en cualquier lado.
-                let tableroDesocupado = tableroCompleto.diff(tablero.tableroOcupado);
-                //obtener celda aleatoria
-                let celdaRandom = tableroDesocupado[Math.floor(Math.random()*tableroDesocupado.length)];
-                tablero.tableroOcupado.push(celdaRandom);
-                tablero.tableroOcupado.sort(function(a,b){return a-b});
-                tablero.tableroMaquina.push(celdaRandom);
-                tablero.tableroMaquina.sort(function(a,b){return a-b});
+            if (tablero.tableroOcupado.length < 8) {
+              tablero.tableroHumano.push(position);
+              tablero.tableroHumano.sort(function (a, b) {
+                return a - b;
+              });
+              tablero.tableroOcupado.push(position);
+              tablero.tableroOcupado.sort(function (a, b) {
+                return a - b;
+              });
+              let isWin = checkWinner(tablero.tableroHumano);
+              //verificar si gano humano
+              if (isWin) {
+                tablero.ganadorHumano = true;
+                tablero.cantidadGanadorHumano =
+                  tablero.cantidadGanadorHumano + 1;
                 tablero.save();
                 return tablero;
+              } else {
+                //si no gano humano tratar de buscar si gana maquina
+                let celdaM = checkSiGana(
+                  tablero.tableroMaquina,
+                  tablero.tableroOcupado
+                );
+                if (celdaM > -1) {
+                  tablero.tableroMaquina.push(celdaM);
+                  tablero.tableroMaquina.sort(function (a, b) {
+                    return a - b;
+                  });
+                  tablero.tableroOcupado.push(celdaM);
+                  tablero.tableroOcupado.sort(function (a, b) {
+                    return a - b;
+                  });
+                  tablero.ganadorMaquina = true;
+                  tablero.cantidadGanadorMaquina =
+                    tablero.cantidadGanadorMaquina + 1;
+                  tablero.save();
+                  return tablero;
+                } else {
+                  //verificar si esta por ganar el humano
+                  let celdaH = checkSiGana(
+                    tablero.tableroHumano,
+                    tablero.tableroOcupado
+                  );
+                  if (celdaH > -1) {
+                    tablero.tableroMaquina.push(celdaH);
+                    tablero.tableroMaquina.sort(function (a, b) {
+                      return a - b;
+                    });
+                    tablero.tableroOcupado.push(celdaH);
+                    tablero.tableroOcupado.sort(function (a, b) {
+                      return a - b;
+                    });
+                    tablero.save();
+                    return tablero;
+                  } else {
+                    //si no esta por ganar el humano poner celda en cualquier lado.
+                    let tableroDesocupado = tableroCompleto.diff(
+                      tablero.tableroOcupado
+                    );
+                    //obtener celda aleatoria
+                    let celdaRandom =
+                      tableroDesocupado[
+                        Math.floor(Math.random() * tableroDesocupado.length)
+                      ];
+                    tablero.tableroOcupado.push(celdaRandom);
+                    tablero.tableroOcupado.sort(function (a, b) {
+                      return a - b;
+                    });
+                    tablero.tableroMaquina.push(celdaRandom);
+                    tablero.tableroMaquina.sort(function (a, b) {
+                      return a - b;
+                    });
+                    tablero.save();
+                    return tablero;
+                  }
+                }
+              }
             }
             //quiere decir que jugo el humano y solo queda una celda
-            if(tablero.tableroOcupado.length == 8){
-              //si no esta por ganar el humano poner celda en cualquier lado.
-              let tableroDesocupado = tableroCompleto.diff(tablero.tableroOcupado);
-              //obtener celda aleatoria
-              let celdaRandom = tableroDesocupado[Math.floor(Math.random()*tableroDesocupado.length)];
-              tablero.tableroOcupado.push(celdaRandom);
-              tablero.tableroOcupado.sort(function(a,b){return a-b});
-              tablero.tableroMaquina.push(celdaRandom);
-              tablero.tableroMaquina.sort(function(a,b){return a-b});
-              //checkear si gano la maquina
-              let isWin = checkWinner(tablero.tableroMaquina);
-              if(isWin){
-                tablero.ganadorMaquina= true;
-                tablero.cantidadGanadorMaquina = tablero.cantidadGanadorMaquina + 1;
+            if (tablero.tableroOcupado.length == 8 &&
+              !tablero.empate &&
+          !tablero.ganadorHumano &&
+          !tablero.ganadorMaquina
+              ) {
+              tablero.tableroOcupado.push(position);
+              tablero.tableroOcupado.sort(function (a, b) {
+                return a - b;
+              });
+              tablero.tableroHumano.push(position);
+              tablero.tableroHumano.sort(function (a, b) {
+                return a - b;
+              });
+              //checkear si gano el humano
+              let isWin = checkWinner(tablero.tableroHumano);
+              if (isWin) {
+                tablero.ganadorHumano = true;
+                tablero.cantidadGanadorHumano =
+                  tablero.cantidadGanadorHumano + 1;
                 tablero.save();
               }
               //hay empate
@@ -131,20 +169,19 @@ class TableroService {
               tablero.save();
               return tablero;
             }
-            
-
-        } else {
+          } else {
             return (jsonResult = {
               msgError: "La posición ya esta ocupada, debe elegir otra",
               datoAdicional: "",
             });
           }
-        }
-        else{
-            return (jsonResult = {
-                msgError: "Ya existe un ganador, el tablero debe reiniciarse en /tablero/reiniciar",
-                datoAdicional: "Con dato adicional el header key: id y value:" + idUsuario,
-              });
+        } else {
+          return (jsonResult = {
+            msgError:
+              "Ya existe un ganador, el tablero debe reiniciarse en /tablero/reiniciar",
+            datoAdicional:
+              "Con dato adicional el header key: id y value:" + idUsuario,
+          });
         }
       } else {
         return (jsonResult = {
@@ -182,7 +219,7 @@ class TableroService {
       datoAdicional: String,
     };
     const tablero = await ModelTablero.findOne({ _id: idUsuario });
-    if(tablero){
+    if (tablero) {
       tablero.tableroOcupado = [];
       tablero.tableroMaquina = [];
       tablero.tableroHumano = [];
@@ -191,12 +228,11 @@ class TableroService {
       tablero.ganadorMaquina = false;
       tablero.save();
       return tablero;
-    }
-    else{
+    } else {
       return (jsonResult = {
         msgError: "Algo sucedio mal en el reinicio del tablero",
-        datoAdicional: ""
-      })
+        datoAdicional: "",
+      });
     }
   }
 
@@ -207,60 +243,67 @@ class TableroService {
       datoAdicional: String,
     };
     const tablero = await ModelTablero.findOne({ _id: idUsuario });
-    if(tablero){
+    if (tablero) {
       tablero.cantidadEmpates = 0;
       tablero.cantidadGanadorHumano = 0;
       tablero.cantidadGanadorMaquina = 0;
       tablero.save();
       return tablero;
-    }
-    else{
+    } else {
       return (jsonResult = {
         msgError: "Algo sucedio mal en el reinicio del historial",
-        datoAdicional: ""
-      })
+        datoAdicional: "",
+      });
     }
   }
 }
 function checkWinner(tablero) {
-    let hayGanador = false;
-    winningCombos.forEach(element => {
-        var _elemento0 = tablero.find((e)=> e == element[0]);
-        var _elemento1 = tablero.find((e)=> e == element[1]);
-        var _elemento2 = tablero.find((e)=> e == element[2]);
-        if (_elemento0 && _elemento1 && _elemento2) {
-            hayGanador = true;
-            return hayGanador
-        }
-    })
-    return hayGanador;
+  let hayGanador = false;
+  winningCombos.forEach((element) => {
+    var _elemento0 = tablero.find((e) => e == element[0]);
+    var _elemento1 = tablero.find((e) => e == element[1]);
+    var _elemento2 = tablero.find((e) => e == element[2]);
+    if (_elemento0 && _elemento1 && _elemento2) {
+      hayGanador = true;
+      return hayGanador;
+    }
+  });
+  return hayGanador;
 }
-function checkSiGana(tablero) {
-    let celda = -1;
-    winningCombos.forEach(element => {
-        var _elemento0 = tablero.find((e)=> e == element[0]);
-        var _elemento1 = tablero.find((e)=> e == element[1]);
-        var _elemento2 = tablero.find((e)=> e == element[2]);
-        if (_elemento1 && _elemento2) {
-            celda = element[0];
-            return 
-        }
-        if (_elemento0 &&  _elemento2) {
-            celda = element[1];
-            return 
-        }
-        if (_elemento0 && _elemento1) {
-          celda = element[2];
-          return 
+function checkSiGana(tablero, tableroOcupado) {
+  let celda = -1;
+  winningCombos.forEach((element) => {
+    var _elemento0 = tablero.find((e) => e == element[0]);
+    var _elemento1 = tablero.find((e) => e == element[1]);
+    var _elemento2 = tablero.find((e) => e == element[2]);
+    
+    if (_elemento1 && _elemento2) {
+      if (!tableroOcupado.find((el) => el == element[0])) {
+        celda = element[0];
+        return;
       }
-    })
-    return celda;
+    }
+    if (_elemento0 && _elemento2) {
+      if (!tableroOcupado.find((el) => el == element[1])) {
+        celda = element[1];
+        return;
+      }
+    }
+    if (_elemento0 && _elemento1) {
+      if (!tableroOcupado.find((el) => el == element[2])) {
+        celda = element[2];
+        return;
+      }
+    }
+  });
+  return celda;
 }
 //obtener diferencia entre arrays
-Array.prototype.diff = function(a) {
-    return this.filter(function(i) {return a.indexOf(i) < 0;});
+Array.prototype.diff = function (a) {
+  return this.filter(function (i) {
+    return a.indexOf(i) < 0;
+  });
 };
-
 
 module.exports = {
   TableroService,

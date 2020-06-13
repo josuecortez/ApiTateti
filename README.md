@@ -19,7 +19,12 @@ Example: ejemplo de dato a enviar.
 ````
 2. 2 Muestra el id del nuevo usuario
 ````
-5ee15917c3eb175f72c1d044
+{
+    "_id": "5ee42edfd7f25a22b3ad4373",
+    "nombre": "Josue Cortez",
+    "ganador": false,
+    "__v": 0
+}
 ````
 ### 2. GET /user 
 1. Obtener todos los user **GET**
@@ -27,7 +32,7 @@ Example: ejemplo de dato a enviar.
 ### 3. GET /user/id
 1. Enviar id para obtener el usuario **GET**
 
-## HTTP's Request del tablero
+## HTTP's Request del Tablero
 ### 1. GET /tablero
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero
@@ -57,7 +62,7 @@ value = 5ee15917c3eb175f72c1d044
 }
 ````
 
-### 2. POST /tablero/posicion
+### 2. GET /tablero/posicion
 
 1. 1 http request **POST** en la siguiente url http://localhost:3001/tablero/posicion
 ----
@@ -95,9 +100,9 @@ http: //localhost:3001/tablero/8
 }
 ````
 
-### 3. GET /tablero/reiniciar
+### 3. GET /tableroReiniciar/
 
-1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero/reiniciar
+1. 1 http request **GET** en la siguiente url http://localhost:3001/tableroReiniciar
 ----
 #### Data to send  
 Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
@@ -125,9 +130,9 @@ http: //localhost:3001/tablero/reiniciar
     "__v": 16
 }
 ````
-### 4. GET /tablero/reiniciarHistorial
+### 4. GET /reiniciarHistorial
 
-1. 1 http request **POST** en la siguiente url http://localhost:3001/tablero/reiniciarHistorial
+1. 1 http request **POST** en la siguiente url http://localhost:3001/reiniciarHistorial
 ----
 #### Data to send  
 Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url

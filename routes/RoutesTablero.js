@@ -19,7 +19,7 @@ function tableroApi(app) {
 });
 
   //obtener posicion del tablero
-  router.post("/tablero/:position", function (req, res) {
+  router.get("/tablero/:position", function (req, res) {
       tableroService.setPosition(req.params.position,req.headers.id)
         .then((tablero)=> {
             res.status(200).json(tablero);
@@ -30,7 +30,7 @@ function tableroApi(app) {
   });
 
   //reiniciar tablero
-  router.get("/tablero/reiniciar", function (req, res) {
+  router.get("/tableroReiniciar/", function (req, res) {
     tableroService.reiniciar(req.headers.id)
       .then((tablero)=> {
           //respuesta
@@ -42,7 +42,7 @@ function tableroApi(app) {
 });
 
  //reiniciar tablero
- router.get("/tablero/reiniciarHistorial", function (req, res) {
+ router.get("/reiniciarHistorial", function (req, res) {
     tableroService.reiniciarHistorial(req.headers.id)
       .then((tablero)=> {
           //respuesta

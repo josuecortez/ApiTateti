@@ -12,7 +12,7 @@ function userApi(app) {
       .then((user) => {
         if (user) {
           //response.success(req.body, res, 'Ok', 200);
-          res.status(200).json(user._id);
+          res.status(200).json(user);
         }
       })
       .catch((err) => {
