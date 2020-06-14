@@ -1,6 +1,6 @@
 # Api para catedra Programacion avanzada de un juego tateti
 
-## Intructions to run 
+## Intrucciones de uso 
 1. Descargar e instalar Node con el siguiente link https://nodejs.org/es/download/
 2. Clonar o copiar el proyecto
 3. Correr en la terminal `npm install --save`
@@ -10,7 +10,7 @@
 ### 1.POST /user
 1. 1 http request **POST** en la siguiente url http://localhost:3001/user
 ----
-#### Data to send
+#### Datos a enviar
 Example: ejemplo de dato a enviar.
 ````
 {
@@ -37,8 +37,8 @@ Example: ejemplo de dato a enviar.
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero
 ----
-#### Data to send HEADER 
-Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario 
+#### Datos a enviar HEADER 
+Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario 
 ````
 header a enviar
 key = id
@@ -66,8 +66,8 @@ value = 5ee15917c3eb175f72c1d044
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero/posicion
 ----
-#### Data to send  
-Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
+#### Datos a enviar  
+Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
 ````
 header a enviar
 key = id
@@ -104,8 +104,8 @@ http: //localhost:3001/tablero/8
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/tableroReiniciar
 ----
-#### Data to send  
-Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
+#### Datos a enviar
+Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
 ````
 header a enviar
 key = id
@@ -134,8 +134,8 @@ http: //localhost:3001/tablero/reiniciar
 
 1. 1 http request **GET** en la siguiente url http://localhost:3001/reiniciarHistorial
 ----
-#### Data to send  
-Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
+#### Datos a enviar 
+Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
 ````
 header a enviar
 key = id
