@@ -64,7 +64,7 @@ value = 5ee15917c3eb175f72c1d044
 
 ### 2. GET /tablero/posicion
 
-1. 1 http request **POST** en la siguiente url http://localhost:3001/tablero/posicion
+1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero/posicion
 ----
 #### Data to send  
 Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
@@ -132,7 +132,7 @@ http: //localhost:3001/tablero/reiniciar
 ````
 ### 4. GET /reiniciarHistorial
 
-1. 1 http request **POST** en la siguiente url http://localhost:3001/reiniciarHistorial
+1. 1 http request **GET** en la siguiente url http://localhost:3001/reiniciarHistorial
 ----
 #### Data to send  
 Example: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
