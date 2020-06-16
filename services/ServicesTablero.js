@@ -58,9 +58,9 @@ class TableroService {
             if (tablero.tableroOcupado.length == 9) {
               return (jsonResult = {
                 msgError:
-                  "No existen mas lugares, el tablero debe reiniciarse en /tablero/reiniciar",
+                  "No existen mas lugares, el tablero debe reiniciarse",
                 datoAdicional:
-                  "Con dato adicional el header key: id y value:" + idUsuario,
+                "Con dato adicional el id con valor:" + idUsuario,
               });
             }
             if (tablero.tableroOcupado.length < 8) {
@@ -178,9 +178,9 @@ class TableroService {
         } else {
           return (jsonResult = {
             msgError:
-              "Ya existe un ganador, el tablero debe reiniciarse en /tablero/reiniciar",
+              "Ya existe un ganador, el tablero debe reiniciarse",
             datoAdicional:
-              "Con dato adicional el header key: id y value:" + idUsuario,
+              "Con dato adicional el id con valor:" + idUsuario,
           });
         }
       } else {

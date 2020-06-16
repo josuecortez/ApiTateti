@@ -8,7 +8,7 @@ function tableroApi(app) {
   const tableroService = new TableroService.TableroService();
 
   //obtener posicion del tablero
-  router.get("/tablero", function (req, res) {
+  router.get("/board", function (req, res) {
     tableroService.getPositionInicial(req.headers.id)
       .then((tablero)=> {
           res.status(200).json(tablero);
@@ -19,7 +19,7 @@ function tableroApi(app) {
 });
 
   //obtener posicion del tablero
-  router.get("/tablero/:position", function (req, res) {
+  router.put("/board/:position", function (req, res) {
       tableroService.setPosition(req.params.position,req.headers.id)
         .then((tablero)=> {
             res.status(200).json(tablero);
@@ -30,8 +30,8 @@ function tableroApi(app) {
   });
 
   //reiniciar tablero
-  router.get("/tableroReiniciar/", function (req, res) {
-    tableroService.reiniciar(req.headers.id)
+  router.put("/board/:id/reset", function (req, res) {
+    tableroService.reiniciar(req.params.id)
       .then((tablero)=> {
           //respuesta
           res.status(200).json(tablero);
@@ -42,7 +42,7 @@ function tableroApi(app) {
 });
 
  //reiniciar tablero
- router.get("/reiniciarHistorial", function (req, res) {
+ router.put("/board/:id/resetHistory", function (req, res) {
     tableroService.reiniciarHistorial(req.headers.id)
       .then((tablero)=> {
           //respuesta

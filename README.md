@@ -29,13 +29,13 @@ Example: ejemplo de dato a enviar.
 ### 2. GET /user 
 1. Obtener todos los user **GET**
 
-### 3. GET /user/id
+### 3. GET /user/:id
 1. Enviar id para obtener el usuario **GET**
 
-## HTTP's Request del Tablero
-### 1. GET /tablero
+## HTTP's Request del Tablero (board)
+### 1. GET /board
 
-1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero
+1. 1 http request **GET** en la siguiente url http://localhost:3001/board
 ----
 #### Datos a enviar HEADER 
 Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario 
@@ -62,9 +62,9 @@ value = 5ee15917c3eb175f72c1d044
 }
 ````
 
-### 2. GET /tablero/posicion
+### 2. PUT /board/:position
 
-1. 1 http request **GET** en la siguiente url http://localhost:3001/tablero/posicion
+1. 1 http request **PUT** en la siguiente url http://localhost:3001/board/5
 ----
 #### Datos a enviar  
 Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
@@ -100,19 +100,12 @@ http: //localhost:3001/tablero/8
 }
 ````
 
-### 3. GET /tableroReiniciar/
+### 3. PUT /board/:id/reset
 
-1. 1 http request **GET** en la siguiente url http://localhost:3001/tableroReiniciar
+1. 1 http request **PUT** en la siguiente url http://localhost:3001/board/5ee69674909af0c9485b50c3/reset
 ----
 #### Datos a enviar
-Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
-````
-header a enviar
-key = id
-value = 5ee15917c3eb175f72c1d044
-
-http: //localhost:3001/tablero/reiniciar
-````
+Nota: id del usuario o tablero, ya que comparten el mismo id.
 
 2. 2 Muestra el tablero reiniciado solamente las celdas, el historial queda igual
 ````
@@ -130,19 +123,12 @@ http: //localhost:3001/tablero/reiniciar
     "__v": 16
 }
 ````
-### 4. GET /reiniciarHistorial
+### 4. PUT /board/:id/resetHistory
 
-1. 1 http request **GET** en la siguiente url http://localhost:3001/reiniciarHistorial
+1. 1 http request **GET** en la siguiente url http://localhost:3001/board/5ee69674909af0c9485b50c3/resetHistory
 ----
-#### Datos a enviar 
-Nota: enviar con header con el id del usuario para obtener el ultimo tablero del usuario ademas de la posicion dentro de la url
-````
-header a enviar
-key = id
-value = 5ee15917c3eb175f72c1d044
-
-http: //localhost:3001/tablero/8
-````
+#### Datos a enviar
+Nota: id del usuario o tablero, ya que comparten el mismo id.
 
 2. 2 Muestra el tablero actual pero actualizando el historial de partidas llevando a 0 
 ````
